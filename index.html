@@ -188,21 +188,83 @@
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h2>Laboratoriya Ishi Yo'riqnomasi</h2>
-            <div class="modal-body">
-                <!-- User can edit text here -->
-                <p><strong>Ishning maqsadi:</strong> Matematik va fizik mayatniklarning tebranish qonuniyatlarini
-                    o'rganish, tebranish davrining parametrlarga bog'liqligini tekshirish.</p>
-                <p><strong>Kerakli jihozlar:</strong> Shtativ, sharcha, ip, metall sterjen, sekundomer, o'lchov lentasi.
-                </p>
-                <h3>Ishni bajarish tartibi:</h3>
-                <ol>
-                    <li>Mayatnik turini tanlang (Matematik yoki Prujinali).</li>
-                    <li>Kerakli parametrlarni o'rnating (Uzunlik, Massa, Bikrlik).</li>
-                    <li>Mayatnikni muvozanat holatidan chiqarish uchun burchak yoki siljishni tanlang.</li>
-                    <li>"Start" tugmasini bosib tebranishni kuzating.</li>
-                    <li>"Saqlash" tugmasini bosib natijalarni jadvalga yozing.</li>
-                </ol>
+            <h3>1-LABORATORIYA ISHI: MATEMATIK VA FIZIK MAYATNIK TEBRANISHLARINI O‘RGANISH</h3>
+            <p><strong>Darslik:</strong> Savelev I.V., 1-qism, §49,50,53,58. Ushbu ko’rsatma orqali ishning nazariyasi
+                bilan tanishib chiqing.</p>
+            <p><strong>Ishning maqsadi:</strong> Kvazi egiluvchan kuch ta’sirida jismning harakatini o’rganish hamda
+                tebranish chastotasi bilan tizimning boshqa parametrlari orasidagi bog’lanishni tajribada aniqlash.</p>
+
+            <h4>Qisqacha nazariy ma’lumot</h4>
+            <p>Tebranish jismning davriy takrorlanuvchi harakatidir. Garmonik tebranma harakat tenglamasi:</p>
+            <div class="formula">x = A cos(&omega;t + &phi;<sub>0</sub>) &nbsp;&nbsp;&nbsp; (1)</div>
+            <p>Bu yerda <em>x</em> - siljish, <em>A</em> - siljish amplitudasi, <em>t</em> - vaqt, <em>&omega;t +
+                    &phi;<sub>0</sub></em> - faza, <em>&phi;<sub>0</sub></em> - boshlang’ich faza.</p>
+            <p>Siklik chastota <em>&omega;</em> - 2&pi; sekunddagi tebranishlar soni:</p>
+            <div class="formula">&omega; = 2&pi;&nu; = 2&pi;/T &nbsp;&nbsp;&nbsp; (2)</div>
+            <p>Garmonik tebranma harakat qilayotgan jismning tezlik va tezlanishi ham garmonik tebranma harakat qiladi:
+            </p>
+            <div class="formula">v = dx/dt = -A&omega; sin(&omega;t + &phi;<sub>0</sub>) &nbsp;&nbsp;&nbsp; (3)</div>
+            <div class="formula">a = dv/dt = -A&omega;<sup>2</sup> cos(&omega;t + &phi;<sub>0</sub>) &nbsp;&nbsp;&nbsp;
+                (4)</div>
+            <p>Ushbu <em>d<sup>2</sup>x/dt<sup>2</sup> + &omega;<sup>2</sup>x = 0</em> tenglama garmonik tebranma
+                harakatning differensial tenglamasi deyiladi.</p>
+
+            <h4>Fizik va Matematik Mayatnik</h4>
+            <p><strong>Fizik mayatnik:</strong> Massalar markazidan o’tmagan gorizontal o’qqa mahkamlangan absolyut
+                qattiq jism fizik mayatnik hisoblanadi. Aylanma harakat dinamikasining asosiy tenglamasi <em>M =
+                    I&epsilon;</em> dan foydalanamiz. Tebranish davri:</p>
+            <div class="formula">T = 2&pi; &radic;(J / mgl)</div>
+            <p>Bu yerda <em>J</em> - inersiya momenti, <em>m</em> - massa, <em>l</em> - osish nuqtasidan massa
+                markazigacha masofa.</p>
+
+            <p><strong>Matematik mayatnik:</strong> Uzunligi o’zgarmaydigan va vaznsiz ipga osilgan <em>m</em> massali
+                sharik. Differensial tenglamasi:</p>
+            <div class="formula">d<sup>2</sup>&alpha;/dt<sup>2</sup> + (g/L)sin&alpha; = 0</div>
+            <p>Kichik burchaklarda (sin&alpha; &approx; &alpha;) yechimdan davr formulasi kelib chiqadi:</p>
+            <div class="formula">T = 2&pi; &radic;(L / g)</div>
+
+            <h4>So‘nuvchi tebranishlar</h4>
+            <p>Tebranayotgan tizim energiyasining kamayishi hisobiga tebranish so'nadi. Differensial tenglamasi:</p>
+            <div class="formula">d<sup>2</sup>x/dt<sup>2</sup> + 2&beta;(dx/dt) + &omega;<sub>0</sub><sup>2</sup>x = 0
+                &nbsp;&nbsp;&nbsp; (5)</div>
+            <p>Bunda &beta; - so’nish koeffisiyenti. Tenglamaning yechimi:</p>
+            <div class="formula">x = A<sub>0</sub> e<sup>-&beta;t</sup> cos(&omega;t + &phi;) &nbsp;&nbsp;&nbsp; (6)
             </div>
+            <p>So’nuvchi tebranish chastotasi: <em>&omega; = &radic;(&omega;<sub>0</sub><sup>2</sup> -
+                    &beta;<sup>2</sup>)</em></p>
+
+            <h4>Ishni bajarish tartibi:</h4>
+            <ol>
+                <li>Monitor ekranining yuqori qismidagi “Start” tugmasini bosing (yoki parametrlarni o'zgartiring).</li>
+                <li>Boshqaruv elementlari orqali ipning uzunligi (L), massa (m) va boshlang'ich og'ish burchagini
+                    tanlang.</li>
+                <li>"Start" tugmasini bosib tebranishni kuzating.</li>
+                <li>"Vaqt" (t) ni o'lchang (dastur avtomatik ko'rsatadi) va tebranishlar sonini (N) aniqlang.</li>
+                <li>N ta to’liq tebranish uchun vaqtni o'lchang. Dastlab L=130sm oling, keyin 10sm ga kamaytirib boring
+                    (90sm gacha).</li>
+                <li>Olingan natijalarni "Saqlash" tugmasi orqali jadvalga kiriting.</li>
+            </ol>
+
+            <p><strong>Hisobot tayyorlash:</strong> Olingan natijalar asosida T<sup>2</sup> va L bog'liqlik grafigini
+                chizing va g ni aniqlang.</p>
+
+            <style>
+                .formula {
+                    background: rgba(255, 255, 255, 0.05);
+                    padding: 0.5rem;
+                    margin: 0.5rem 0;
+                    border-radius: 4px;
+                    font-family: 'Courier New', monospace;
+                    text-align: center;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+
+                h4 {
+                    color: var(--primary-color);
+                    margin-top: 1rem;
+                    margin-bottom: 0.5rem;
+                }
+            </style>
         </div>
     </div>
 
