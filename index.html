@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abduraxmonov Temur: Matematik va Fizik Mayatnik</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <!-- Left Side: Simulation & Graphs -->
+            <section class="visual-area">
+                <div class="canvas-container">
+                    <canvas id="pendulumCanvas"></canvas>
+                    <div class="timer-display">Vaqt: <span id="time-display">0.00</span> s</div>
+
+                    <div class="canvas-controls-overlay">
+                        <h2>Abduraxmonov Temur:<br> Labaratoriya Ishi №1</h2>
+                        <div class="action-buttons">
+                            <button id="start-btn" class="primary-btn">
+                                <span class="icon">▶</span> Start
+                            </button>
+                            <button id="pause-btn" class="secondary-btn" style="display: none;">
+                                <span class="icon">⏸</span> Pause
+                            </button>
+                            <button id="reset-btn" class="danger-btn">
+                                <span class="icon">↺</span> Reset
+                            </button>
+                            <button id="save-btn" class="secondary-btn" style="background-color: var(--success-color);">
+                                <span class="icon">💾</span> Saqlash
+                            </button>
+                        </div>
+                        <div class="info-buttons">
+                            <button id="desc-btn" class="secondary-btn">
+                                <span class="icon">📝</span> Yo'riqnoma
+                            </button>
+                            <button id="auth-btn" class="secondary-btn">
+                                <span class="icon">👥</span> Mualliflar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-box">
+                        <h3>Og'ish burchagi (α)</h3>
+                        <canvas id="angleChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Side: Controls & Data -->
+            <aside class="controls-area">
+
+
+                <div class="panel settings-panel">
+                    <h2>Parametrlar</h2>
+                    <!-- ... -->
+                    <!-- Lab Tables Section -->
+
+
+                    <div class="control-group">
+                        <label for="target-cycles">Tebranishlar soni (N)</label>
+                        <div class="range-wrap">
+                            <input type="number" id="target-cycles" min="1" max="100" value="10"
+                                style="width: 100%; padding: 0.5rem; border-radius: 8px; background: #334155; color: white; border: 1px solid #475569;">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="pendulum-type">Mayatnik Turi</label>
+                        <select id="pendulum-type"
+                            style="width: 100%; padding: 0.5rem; border-radius: 8px; background: #334155; color: white; border: 1px solid #475569;">
+                            <option value="math">Matematik Mayatnik (Ip+Shar)</option>
+                            <option value="spring">Prujinali Mayatnik (Vertikal)</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group" id="stiffness-group" style="display: none;">
+                        <label for="stiffness">Prujina Zichligi (Bikrligi k) [N/m]</label>
+                        <div class="range-wrap">
+                            <input type="range" id="stiffness" min="10" max="200" value="40" step="1">
+                            <span id="stiffness-val">40</span> N/m
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="length">Uzunlik (L) [sm]</label>
+                        <div class="range-wrap">
+                            <input type="range" id="length" min="10" max="200" value="100" step="1">
+                            <span id="length-val">100</span> sm
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="mass">Massa (m) [kg]</label>
+                        <div class="range-wrap">
+                            <input type="range" id="mass" min="0.1" max="10" value="1" step="0.1">
+                            <span id="mass-val">1.0</span> kg
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="gravity">Erkin tushish tezlanishi (g)</label>
+                        <div class="range-wrap">
+                            <input type="range" id="gravity" min="1.6" max="20" value="9.8" step="0.1">
+                            <span id="gravity-val">9.8</span> m/s²
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="damping">So'nish koeffisiyenti (β)</label>
+                        <div class="range-wrap">
+                            <input type="range" id="damping" min="0" max="1.0" value="0.05" step="0.01">
+                            <span id="damping-val">0.05</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="angle">Boshlang'ich burchak (α₀) [gradus]</label>
+                        <div class="range-wrap">
+                            <input type="range" id="angle" min="-90" max="90" value="30" step="1">
+                            <span id="angle-val">30</span>°
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel data-panel">
+                    <h2>Natijalar</h2>
+                    <div class="data-grid">
+                        <div class="data-item">
+                            <span class="label">Tebranishlar (N):</span>
+                            <span class="value" id="cycle-count">0</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="label">Davr (T):</span>
+                            <span class="value" id="period-val">0.00</span> s
+                        </div>
+                        <div class="data-item">
+                            <span class="label">Chastota (ν):</span>
+                            <span class="value" id="frequency-val">0.00</span> Hz
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Lab Tables Section -->
+        <section class="tables-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2>Tajriba Natijalari (2-Jadval. O'lchash natijalari)</h2>
+                <button id="export-btn" class="primary-btn" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                    <span class="icon">⬇️</span> Yuklab olish (.csv)
+                </button>
+            </div>
+            <div class="table-qa-wrapper" style="overflow-x: auto;">
+                <table id="results-table-bottom" class="results-table-common" style="min-width: 600px;">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>n</th>
+                            <th>Mayatnik</th>
+                            <th>L (sm)</th>
+                            <th>m (kg)</th>
+                            <th>β</th>
+                            <th>α₀</th>
+                            <th>T (hisoblangan)</th>
+                            <th>ν (Hz)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modals -->
+    <div id="desc-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Laboratoriya Ishi Yo'riqnomasi</h2>
+            <div class="modal-body">
+                <!-- User can edit text here -->
+                <p><strong>Ishning maqsadi:</strong> Matematik va fizik mayatniklarning tebranish qonuniyatlarini
+                    o'rganish, tebranish davrining parametrlarga bog'liqligini tekshirish.</p>
+                <p><strong>Kerakli jihozlar:</strong> Shtativ, sharcha, ip, metall sterjen, sekundomer, o'lchov lentasi.
+                </p>
+                <h3>Ishni bajarish tartibi:</h3>
+                <ol>
+                    <li>Mayatnik turini tanlang (Matematik yoki Prujinali).</li>
+                    <li>Kerakli parametrlarni o'rnating (Uzunlik, Massa, Bikrlik).</li>
+                    <li>Mayatnikni muvozanat holatidan chiqarish uchun burchak yoki siljishni tanlang.</li>
+                    <li>"Start" tugmasini bosib tebranishni kuzating.</li>
+                    <li>"Saqlash" tugmasini bosib natijalarni jadvalga yozing.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="author-container">
+                <!-- Student -->
+                <div class="author-card">
+                    <div class="author-img-wrapper">
+                        <img src="https://via.placeholder.com/150" alt="Abduraxmonov Temur" class="author-img">
+                    </div>
+                    <div class="author-info">
+                        <h3>Abduraxmonov Temur</h3>
+                        <p><strong>Guruh:</strong> 619-25</p>
+                        <p><strong>Rol:</strong> Dasturchi</p>
+                    </div>
+                </div>
+
+                <!-- Teacher -->
+                <div class="author-card">
+                    <div class="author-img-wrapper">
+                        <img src="https://via.placeholder.com/150" alt="Dotsent Odilov Yorqin" class="author-img">
+                    </div>
+                    <div class="author-info">
+                        <h3>Dotsent Odilov Yorqin</h3>
+                        <p><strong>Lavozim:</strong> O'qituvchi</p>
+                        <p><strong>Rol:</strong> Ilmiy Rahbar</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="margin: 1rem 0; border: 0; border-top: 1px solid #475569;">
+            <p>Ushbu dastur fizika laboratoriya ishlarini virtual bajarish uchun mo'ljallangan.</p>
+        </div>
+    </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,568 @@
+:root {
+    --bg-color: #0f172a;
+    --panel-bg: #1e293b;
+    --primary-color: #3b82f6;
+    --accent-color: #60a5fa;
+    --text-color: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+    --danger-color: #ef4444;
+    --success-color: #22c55e;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    height: 100vh;
+    overflow: hidden;
+    /* App-like feel */
+}
+
+/* App Container */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+/* Header Removed */
+
+/* Action Buttons in Sidebar */
+/* Canvas Controls Overlay */
+.canvas-controls-overlay {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 10;
+    width: 280px;
+    pointer-events: none;
+    /* Allow clicks to pass through gaps */
+}
+
+.canvas-controls-overlay>* {
+    pointer-events: auto;
+    /* Re-enable clicks on children */
+}
+
+.canvas-controls-overlay h2 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    background: rgba(15, 23, 42, 0.6);
+    /* Semi-transparent background for text */
+    padding: 0.5rem;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.canvas-controls-overlay .action-buttons,
+.canvas-controls-overlay .info-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.canvas-controls-overlay .info-buttons button,
+.canvas-controls-overlay .action-buttons button {
+    flex: 1;
+    font-size: 0.85rem;
+    padding: 0.5rem;
+    justify-content: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons */
+button {
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+.secondary-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.secondary-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.danger-btn {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+.danger-btn:hover {
+    background-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Main Workspace */
+.workspace {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 1rem;
+    flex: 1;
+    min-height: 0;
+    /* Important for scroll within grid */
+}
+
+/* Visual Area */
+.visual-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 0;
+}
+
+.canvas-container {
+    flex: 2;
+    background-color: var(--panel-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+canvas#pendulumCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.timer-display {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    border: 1px solid var(--border-color);
+}
+
+.charts-container {
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+    min-height: 200px;
+}
+
+.chart-box {
+    flex: 1;
+    background-color: var(--panel-bg);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+.chart-box h3 {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+/* Controls Area */
+.controls-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+}
+
+.panel {
+    background-color: var(--panel-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.panel h2 {
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+}
+
+.control-group {
+    margin-bottom: 1.5rem;
+    padding: 0.25rem 0;
+    /* Add touch padding */
+}
+
+.control-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.range-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+input[type="range"] {
+    flex: 1;
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.range-wrap span {
+    font-family: monospace;
+    font-size: 0.9rem;
+    min-width: 3rem;
+    text-align: right;
+}
+
+/* Data Grid */
+.data-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+}
+
+.data-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.75rem;
+    border-radius: 8px;
+}
+
+.data-item .label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.data-item .value {
+    font-family: monospace;
+    font-size: 1rem;
+    color: var(--success-color);
+}
+
+/* Tables Section */
+.tables-section {
+    background-color: var(--panel-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.tables-section h2 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+th,
+td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+td[contenteditable="true"] {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    cursor: text;
+}
+
+td[contenteditable="true"]:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: var(--panel-bg);
+    margin: 10% auto;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    width: 80%;
+    max-width: 700px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    color: var(--text-color);
+    position: relative;
+    animation: slideDown 0.3s;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.modal-body {
+    line-height: 1.6;
+}
+
+.modal-body p,
+.modal-body li {
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+}
+
+.close-modal {
+    color: var(--text-muted);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: var(--text-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Author Styles */
+.author-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.author-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: #334155;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid #475569;
+}
+
+.author-img-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #60a5fa;
+    flex-shrink: 0;
+}
+
+.author-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.author-info h3 {
+    margin: 0 0 0.5rem 0;
+    color: white;
+}
+
+.author-info p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 900px) {
+    body {
+        height: auto;
+        overflow-y: auto;
+        /* Enable vertical scroll */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .app-container {
+        height: auto;
+        overflow: visible;
+        padding: 0.5rem;
+    }
+
+    .workspace {
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: 1fr;
+        /* Reset grid */
+        gap: 1.5rem;
+    }
+
+    .visual-area {
+        min-height: auto;
+    }
+
+    .canvas-container {
+        height: 50vh;
+        /* Takes half viewport height on mobile */
+        min-height: 350px;
+        /* But at least 350px */
+    }
+
+    .controls-area {
+        width: 100%;
+        overflow-y: visible;
+        /* Let page scroll handle it */
+    }
+
+    .chart-box {
+        min-height: 250px;
+    }
+
+    .charts-container {
+        display: none;
+    }
+
+    /* Fix overlay overlap on mobile */
+    .canvas-controls-overlay {
+        width: 65%;
+        top: 0.5rem;
+        left: 0.5rem;
+    }
+
+    .canvas-controls-overlay h2 {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .canvas-controls-overlay .action-buttons button,
+    .canvas-controls-overlay .info-buttons button {
+        padding: 0.35rem;
+        font-size: 0.7rem;
+    }
+
+    .timer-display {
+        top: auto;
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 1rem;
+    }
+
+    /* Adjust Modal width for mobile */
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+        padding: 1.5rem;
+    }
+
+    /* Stack buttons if needed */
+    .action-buttons {
+        flex-wrap: wrap;
+    }
+
+    .tables-section {
+        overflow-x: auto;
+    }
+}
